@@ -2,7 +2,11 @@
   "name": "spotify",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "https://songs-player.herokuapp.com",
+  "main": "server.js",
+  "engines": { 
+    "npm": "7.8.0", 
+    "node": "14.17.0" 
+  },
   "dependencies": {
     "@splidejs/react-splide": "^0.4.4",
     "@testing-library/jest-dom": "^5.12.0",
@@ -23,7 +27,8 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "heroku-postbuild": "npm install",
+    "start": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
