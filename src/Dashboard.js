@@ -67,7 +67,7 @@ export default function Dashboard({code}) {
      
     useEffect(() => {
       if (!playingTrack) return
-      axios.get("https://songs-player.herokuapp.com/lyrics", {
+      axios.get("https://songs-player.herokuapp.com:80/lyrics", {
         params: {
           track: playingTrack.title,
           artist: playingTrack.artist
