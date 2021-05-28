@@ -10,7 +10,7 @@ export default function useAuth(code) {
 
 
     useEffect(() => {
-        axios.post("https://songs-player.herokuapp.com:80/login", {code,}).then(res => {
+        axios.post("https://songs-player.herokuapp.com:443/login", {code,}).then(res => {
             setAccessToken(res.data.accessToken)
             setRefreshToken(res.data.refreshToken)
             setExpiresIn(res.data.expiresIn)
@@ -24,7 +24,7 @@ export default function useAuth(code) {
     useEffect(() => {
         if(!refreshToken || !expiresIn) return
         const interval = setInterval(() => {
-            axios.post("https://songs-player.herokuapp.com:80/refresh", {refreshToken, }).then(res => {
+            axios.post("https://songs-player.herokuapp.com:443/refresh", {refreshToken, }).then(res => {
                 setAccessToken(res.data.accessToken)
                 setExpiresIn(res.data.expiresIn)
             }).catch(() => {
