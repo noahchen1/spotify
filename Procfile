@@ -1,2 +1,1 @@
-wroker: node server.js
-web: bin/boot
+wroker: bin/boot
