@@ -1,1 +1,1 @@
-worker: node server.js #Production only!
+worker: npm start
