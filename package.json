@@ -32,7 +32,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "startServer": "nodemon server.js",
-    "runServer": "node server.js"
+    "runServer": "node server.js",
+    "awakeHeroku": "node awake.js #Production only!"
   },
   "eslintConfig": {
     "extends": [
