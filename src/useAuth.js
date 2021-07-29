@@ -14,7 +14,7 @@ export default function useAuth(code) {
             setAccessToken(res.data.accessToken)
             setRefreshToken(res.data.refreshToken)
             setExpiresIn(res.data.expiresIn)
-            window.history.pushState({}, null, "/")
+            window.history.pushState({}, null, "/")               // Remove code from the URL after '/'
         }).catch(() => {
             //window.location = "/"
             console.log("there is an error")
