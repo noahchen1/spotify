@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import styled from 'styled-components'
 
 const Client_ID = 'ee791348c2724f159aa8c08bd6783452'
-const Redirect_URI = 'http://localhost:3000'
+const Redirect_URI = 'https://music-player-eigq.onrender.com'
 const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${Client_ID}&response_type=code&redirect_uri=${Redirect_URI}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`
 
 
