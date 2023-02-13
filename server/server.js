@@ -8,8 +8,8 @@ const path = require('path')
 
 const app = express()
 const port = process.env.PORT || 3001
-app.use(express.json())
-app.use(cors(allowedOrigins))
+app.use(express.json());
+app.use(cors(allowedOrigins));
 
 app.post("/refresh", (req, res) => {
     const refreshToken = req.body.refreshToken
@@ -34,7 +34,8 @@ app.post("/refresh", (req, res) => {
   })
 
 app.post("/login", (req, res) => {
-    console.log(req.headers)
+    console.log(res.getHeaders())
+
     const code = req.body.code
     const spotifyApi = new SpotifyWebApi({
       redirectUri: process.env.REDIRECT_URI,
@@ -45,7 +46,6 @@ app.post("/login", (req, res) => {
     spotifyApi
       .authorizationCodeGrant(code)
       .then(data => {
-        res.header('Access-Control-Allow-Origin', 'https://music-player-eigq.onrender.com')
         res.json({
           accessToken: data.body.access_token,
           refreshToken: data.body.refresh_token,
