@@ -8,11 +8,7 @@ export default function useAuth(code) {
     const [expiresIn, setExpiresIn] = useState()
 
     useEffect(() => {
-        axios.post(`${serverUrl}/login`, {code}, {
-            headers: {
-                "Access-Control-Allow-Origin": "*"
-            }
-        }).then(res => {
+        axios.post(`${serverUrl}/login`, {code}).then(res => {
             setAccessToken(res.data.accessToken)
             setRefreshToken(res.data.refreshToken)
             setExpiresIn(res.data.expiresIn)
