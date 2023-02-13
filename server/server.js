@@ -3,11 +3,12 @@ const express = require('express')
 const cors = require('cors')
 const lyricsFinder = require('lyrics-finder')
 const SpotifyWebApi = require('spotify-web-api-node')
+const allowedOrigins = require("./config/allowedOrigins");
 const path = require('path')
 
 const app = express()
 const port = process.env.PORT || 3001
-app.use(cors())
+app.use(cors(allowedOrigins));
 app.use(express.json())
 
 app.post("/refresh", (req, res) => {
@@ -40,7 +41,7 @@ app.post("/login", (req, res) => {
       clientId: process.env.CLIENT_ID,
       clientSecret: process.env.CLIENT_SECRET,
     })
-  
+
     spotifyApi
       .authorizationCodeGrant(code)
       .then(data => {
@@ -51,7 +52,7 @@ app.post("/login", (req, res) => {
         })
       })
       .catch(err => {
-        res.sendStatus(400)
+        res.sendStatus(400);
       })
   })
 
@@ -61,11 +62,11 @@ app.post("/login", (req, res) => {
     res.json({ lyrics })
   })
   
-  app.use(express.static(path.resolve(__dirname, 'build')))
+  // app.use(express.static(path.resolve(__dirname, 'build')))
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
-  })
+  // app.get('*', (req, res) => {
+  //   res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+  // })
 
   app.listen(port, () => {
     console.info(`Server listening on port ${port}`);

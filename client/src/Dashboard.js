@@ -11,6 +11,7 @@ import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css';
 import axios from 'axios'
 import styled from 'styled-components'
+import { serverUrl } from './url/serverUrl'
 
 
 const spotifyApi = new SpotifyWebApi({
@@ -67,7 +68,7 @@ export default function Dashboard({code}) {
      
     useEffect(() => {
       if (!playingTrack) return
-      axios.get("https://songs-player.herokuapp.com/lyrics", {
+      axios.get(`${serverUrl}/lyrics`, {
         params: {
           track: playingTrack.title,
           artist: playingTrack.artist
