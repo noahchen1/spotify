@@ -4,8 +4,9 @@ import styled from 'styled-components'
 
 const Client_ID = 'ee791348c2724f159aa8c08bd6783452'
 const Redirect_URI = 'https://music-player-eigq.onrender.com'
-const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${Client_ID}&response_type=code&redirect_uri=${Redirect_URI}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`
+// const Redirect_URI = 'http://localhost:3000'
 
+const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${Client_ID}&response_type=code&redirect_uri=${Redirect_URI}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`
 
 const loginButtonContainer = {
     display: 'flex',
@@ -74,9 +75,9 @@ const Ripple = styled.div`
 
 export default function Login() {
 
-    
 
-    const [coords, setCoords] = useState({ x:-1, y:-1 })
+
+    const [coords, setCoords] = useState({ x: -1, y: -1 })
     const [isRippling, setIsRippling] = useState(false)
 
     useEffect(() => {
@@ -87,32 +88,32 @@ export default function Login() {
     }, [coords])
 
     useEffect(() => {
-        if(!isRippling) setCoords({ x:-1, y:-1 })
+        if (!isRippling) setCoords({ x: -1, y: -1 })
     }, [isRippling])
-    
+
 
     return (
 
-       <div style={loginButtonContainer}>
+        <div style={loginButtonContainer}>
             <a href={AUTH_URL}>
                 <LoginButton
-                
-                onClick = {e => {
-                    const rect = e.target.getBoundingClientRect()                                                 // Get mouse coordinate when click event occurs
-                    setCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top })                              // Update coordinates for ripple effect to take place 
-                    //setTimeout(() => { window.location.href = AUTH_URL }, 1000)
-                }}>Log in with Spotify
 
-                {isRippling ? (
-                    <Ripple 
-                    style={{    
-                        left: coords.x,                                                                          // Set x coordinate of ripple effect
-                        top: coords.y                                                                            // Set y coordinate of ripple effect 
-                    }}
-                    />) : ('')}
+                    onClick={e => {
+                        const rect = e.target.getBoundingClientRect()                                                 // Get mouse coordinate when click event occurs
+                        setCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top })                              // Update coordinates for ripple effect to take place 
+                        //setTimeout(() => { window.location.href = AUTH_URL }, 1000)
+                    }}>Log in with Spotify
+
+                    {isRippling ? (
+                        <Ripple
+                            style={{
+                                left: coords.x,                                                                          // Set x coordinate of ripple effect
+                                top: coords.y                                                                            // Set y coordinate of ripple effect 
+                            }}
+                        />) : ('')}
 
                 </LoginButton>
             </a>
-        </div> 
+        </div>
     )
 }
