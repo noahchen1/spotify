@@ -44,7 +44,7 @@ app.post("/login", (req, res) => {
     spotifyApi
       .authorizationCodeGrant(code)
       .then(data => {
-        res.header('Access-Control-Allow-Origin', '*')
+        res.header('Access-Control-Allow-Origin', 'https://music-player-eigq.onrender.com')
         res.json({
           accessToken: data.body.access_token,
           refreshToken: data.body.refresh_token,
