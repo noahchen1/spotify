@@ -1,5 +1,6 @@
 const allowedOrigins = [
     'http://localhost:3000',
+    'https://music-player-eigq.onrender.com'
 ];
 
 const corsOptions = {
