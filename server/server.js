@@ -8,6 +8,7 @@ const path = require('path')
 
 const app = express()
 app.use(cors({ origin: ['http://localhost:3000', 'http://music-player-eigq.onrender.com', 'https://music-player-eigq.onrender.com'], credentials: true }))
+app.options('*', cors());
 
 const port = process.env.PORT || 3001;
 app.use(express.json());
