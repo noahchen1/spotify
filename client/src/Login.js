@@ -1,19 +1,21 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import React from "react";
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import { useLoading } from "./LoadingProvider";
+import LoadingScreen from "./LoadingScreen";
 
-const Client_ID = 'ee791348c2724f159aa8c08bd6783452'
-const Redirect_URI = 'https://music-player-eigq.onrender.com'
+const Client_ID = "ee791348c2724f159aa8c08bd6783452";
+const Redirect_URI = "https://music-player-eigq.onrender.com";
 // const Redirect_URI = 'http://localhost:3000'
 
-const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${Client_ID}&response_type=code&redirect_uri=${Redirect_URI}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`
+const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${Client_ID}&response_type=code&redirect_uri=${Redirect_URI}&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`;
 
 const loginButtonContainer = {
-    display: 'flex',
-    justifyContent: 'center',
-    minHeight: '100vh',
-    alignItems: 'center'
-}
+  display: "flex",
+  justifyContent: "center",
+  minHeight: "100vh",
+  alignItems: "center",
+};
 
 const LoginButton = styled.button`
     position: relative;
@@ -44,7 +46,7 @@ const LoginButton = styled.button`
     &:before.is-avtive {
         background -color: black;
     }
-`
+`;
 
 const Ripple = styled.div`
     width: 20px;
@@ -69,51 +71,47 @@ const Ripple = styled.div`
           transform: scale(40);
           opacity: 0;
         }
-`
-
-
+`;
 
 export default function Login() {
+  const [coords, setCoords] = useState({ x: -1, y: -1 });
+  const [isRippling, setIsRippling] = useState(false);
+  const { isLoading } = useLoading();
 
+  useEffect(() => {
+    if (coords.x !== -1 && coords.y !== -1) {
+      setIsRippling(true);
+      setTimeout(() => setIsRippling(false), 300);
+    } else setIsRippling(false);
+  }, [coords]);
 
+  useEffect(() => {
+    if (!isRippling) setCoords({ x: -1, y: -1 });
+  }, [isRippling]);
 
-    const [coords, setCoords] = useState({ x: -1, y: -1 })
-    const [isRippling, setIsRippling] = useState(false)
-
-    useEffect(() => {
-        if (coords.x !== -1 && coords.y !== -1) {
-            setIsRippling(true)
-            setTimeout(() => setIsRippling(false), 300)
-        } else setIsRippling(false)
-    }, [coords])
-
-    useEffect(() => {
-        if (!isRippling) setCoords({ x: -1, y: -1 })
-    }, [isRippling])
-
-
-    return (
-
-        <div style={loginButtonContainer}>
-            <a href={AUTH_URL}>
-                <LoginButton
-
-                    onClick={e => {
-                        const rect = e.target.getBoundingClientRect()                                                 // Get mouse coordinate when click event occurs
-                        setCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top })                              // Update coordinates for ripple effect to take place 
-                        //setTimeout(() => { window.location.href = AUTH_URL }, 1000)
-                    }}>Log in with Spotify
-
-                    {isRippling ? (
-                        <Ripple
-                            style={{
-                                left: coords.x,                                                                          // Set x coordinate of ripple effect
-                                top: coords.y                                                                            // Set y coordinate of ripple effect 
-                            }}
-                        />) : ('')}
-
-                </LoginButton>
-            </a>
-        </div>
-    )
+  return (
+    <div className="relative" style={loginButtonContainer}>
+      {isLoading ? <LoadingScreen /> : null}
+      <a href={AUTH_URL}>
+        <LoginButton
+          onClick={e => {
+            const rect = e.target.getBoundingClientRect(); // Get mouse coordinate when click event occurs
+            setCoords({ x: e.clientX - rect.left, y: e.clientY - rect.top }); // Update coordinates for ripple effect to take place
+          }}
+        >
+          Log in with Spotify
+          {isRippling ? (
+            <Ripple
+              style={{
+                left: coords.x, // Set x coordinate of ripple effect
+                top: coords.y, // Set y coordinate of ripple effect
+              }}
+            />
+          ) : (
+            ""
+          )}
+        </LoginButton>
+      </a>
+    </div>
+  );
 }
